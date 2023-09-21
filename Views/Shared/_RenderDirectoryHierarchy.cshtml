@@ -1,0 +1,14 @@
+@model FolderTree.Models.DirectoryNode
+
+<li>
+    <a asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
+    @if (Model.ChildrenDirectories != null && Model.ChildrenDirectories.Any())
+    {
+        <ul>
+            @foreach (var child in Model.ChildrenDirectories)
+            {
+                <partial name="_RenderDirectoryHierarchy" model="child" />
+            }
+        </ul>
+    }
+</li>

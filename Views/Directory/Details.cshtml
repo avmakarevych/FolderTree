@@ -1,0 +1,18 @@
+@model FolderTree.Models.DirectoryNode
+
+<h4>"Folder" - @Model.Name</h4>
+
+@if (Model.ChildrenDirectories.Any())
+{
+    @foreach (var childDirectory in Model.ChildrenDirectories)
+    {
+        <a asp-action="Details" asp-controller="Directory" asp-route-id="@childDirectory.Id">@childDirectory.Name<br/></a>
+    }
+    <br/>
+}
+else
+{
+    <p>No child directories found.</p>
+}
+
+<a asp-action="Index">Back to Index</a>
