@@ -1,4 +1,5 @@
 using FolderTree.Models;
+using Newtonsoft.Json;
 
 namespace FolderTree.Data
 {
@@ -13,18 +14,9 @@ namespace FolderTree.Data
                 return;
             }
 
-            var directoryNodes = new DirectoryNode[]
-            {
-                new DirectoryNode { Id = 1, Name = "Creating Digital Images", ParentDirectoryId = null },
-                new DirectoryNode { Id = 2, Name = "Resources", ParentDirectoryId = 1 },
-                new DirectoryNode { Id = 3, Name = "Evidence", ParentDirectoryId = 1 },
-                new DirectoryNode { Id = 4, Name = "Graphic Products", ParentDirectoryId = 1 },
-                new DirectoryNode { Id = 5, Name = "Primary Sources", ParentDirectoryId = 2 },
-                new DirectoryNode { Id = 6, Name = "Secondary Sources", ParentDirectoryId = 2 },
-                new DirectoryNode { Id = 7, Name = "Process", ParentDirectoryId = 4 },
-                new DirectoryNode { Id = 8, Name = "Final Product", ParentDirectoryId = 4 }
-            };
-            
+            var directoryNodesData = File.ReadAllText("seedData.json");
+            var directoryNodes = JsonConvert.DeserializeObject<List<DirectoryNode>>(directoryNodesData);
+
             foreach (DirectoryNode node in directoryNodes)
             {
                 context.DirectoryNodes.Add(node);

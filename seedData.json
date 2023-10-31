@@ -1,0 +1,10 @@
+[
+  { "Name": "Creating Digital Images", "ParentDirectoryId": null },
+  { "Name": "Resources", "ParentDirectoryId": 1 },
+  { "Name": "Evidence", "ParentDirectoryId": 1 },
+  { "Name": "Graphic Products", "ParentDirectoryId": 1 },
+  { "Name": "Primary Sources", "ParentDirectoryId": 2 },
+  { "Name": "Secondary Sources", "ParentDirectoryId": 2 },
+  { "Name": "Process", "ParentDirectoryId": 4 },
+  { "Name": "Final Product", "ParentDirectoryId": 4 }
+]

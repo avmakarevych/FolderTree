@@ -9,9 +9,4 @@ public class DirectoryHierarchyContext : DbContext
     public DirectoryHierarchyContext(DbContextOptions<DirectoryHierarchyContext> options)
         : base(options)
     { }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite("Data Source=DirectoryHierarchy.db");
-    }
 }
