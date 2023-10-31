@@ -5,9 +5,10 @@
 }
 
 <p>
-    <a asp-action="Import">Import</a><br/>
-    <a asp-action="Export">Export</a><br/>
+    <a asp-action="Import" class="btn btn-primary">Import</a>
+    <a asp-action="Export" class="btn btn-secondary">Export</a>
 </p>
+
 
 @if (Model.RootDirectories != null)
 {
@@ -21,6 +22,6 @@
 
 <p>
     <form asp-action="DeleteAll" method="post" style="display:inline;">
-            <button type="submit" onclick="return confirm('Are you sure you want to delete all directories?');">Delete All Directories</button>
-            </form>
+           <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete all directories?');">Delete All Directories</button>
+       </form>
 </p>

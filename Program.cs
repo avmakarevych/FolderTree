@@ -3,7 +3,6 @@ using FolderTree.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add DbContext and configure the connection string
 builder.Services.AddDbContext<DirectoryHierarchyContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -11,7 +10,6 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -31,7 +29,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Directory}/{action=Index}/{id?}");
 
-// Initialize Database
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<DirectoryHierarchyContext>();

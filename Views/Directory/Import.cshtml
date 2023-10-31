@@ -5,6 +5,8 @@
 <h1>Import Directory Structure</h1>
 
 <form asp-action="Import" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <div class="form-group">
         <label for="jsonFile">JSON file with directory structure</label>
         <input type="file" class="form-control-file" id="jsonFile" name="jsonFile">

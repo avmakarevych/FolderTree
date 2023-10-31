@@ -23,8 +23,9 @@ namespace FolderTree.Controllers
         // GET: Directory
         public async Task<IActionResult> Index()
         {
-            var rootDirectories = await _context.DirectoryNodes.Where(d => d.ParentDirectoryId == null).ToListAsync();
             var allDirectories = await _context.DirectoryNodes.ToListAsync();
+            var rootDirectories = allDirectories.Where(d => d.ParentDirectoryId == null).ToList();
+
     
             foreach (var directory in allDirectories)
             {
@@ -38,7 +39,7 @@ namespace FolderTree.Controllers
         // GET: Directory/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.DirectoryNodes == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -205,19 +206,26 @@ namespace FolderTree.Controllers
                 {
                     directoriesFromJson = JsonConvert.DeserializeObject<List<DirectoryNode>>(jsonContent);
                 }
-                catch (JsonException ex)
+                catch (JsonReaderException ex)
                 {
-                    //Handle JSON parsing exception if required or return an error
-                    return BadRequest("Invalid JSON file.");
+                    ModelState.AddModelError("jsonFile", "Invalid JSON format. Please check the structure of your JSON file.");
+                    return View();
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("jsonFile", $"An error occurred while processing the file: {ex.Message}");
+                    return View();
                 }
 
-                foreach (var dir in directoriesFromJson)
-                {
-                    if (!DirectoryNodeExists(dir.Id))
+                if (directoriesFromJson != null)
+                    foreach (var dir in directoriesFromJson)
                     {
-                        _context.DirectoryNodes.Add(dir);
+                        if (!DirectoryNodeExists(dir.Id))
+                        {
+                            _context.DirectoryNodes.Add(dir);
+                        }
                     }
-                }
+
                 await _context.SaveChangesAsync();
             }
             else if (!string.IsNullOrWhiteSpace(directoryPath))
